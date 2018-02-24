@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
 import './App.css';
 import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
+import Profile from './Profile';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      query: ''
+      query: '',
+      artist: null
     };
   }
 
-  search() {}
+  search() {
+    const BASE_URL = 'https://api.deezer.com/search';
+    const PROXY = 'https://cors-anywhere.herokuapp.com';
+    const FETCH_URL = `${PROXY}/${BASE_URL}?q=artist:"${this.state.query}"`;
+
+    fetch(FETCH_URL, {method: 'GET', mode: 'cors'})
+      .then(response => response.json())
+      .then(json => {
+        this.setState({'artist': json.data[0].artist});
+      });
+  }
 
   render() {
     return (
@@ -35,10 +47,9 @@ class App extends Component {
             </InputGroup.Addon>
           </InputGroup>
         </FormGroup>
-        <div className="Artist-profile">
-          <div className="Artist-picture"></div>
-          <div className="Artist-name"></div>
-        </div>
+        <Profile
+          artist={this.state.artist}
+        />
         <div className="Gallery">
           Gallery
         </div>
