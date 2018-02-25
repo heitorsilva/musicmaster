@@ -1,0 +1,17 @@
+version: '3'
+services:
+  node:
+    build:
+      context: ./docker/node
+      dockerfile: Dockerfile
+    image: musicmaster/node
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "3000:3000"
+    networks:
+      - sdnet
+networks:
+  sdnet:
+    driver: "bridge"
