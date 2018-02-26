@@ -16,12 +16,12 @@ class App extends Component {
   search() {
     const BASE_URL = 'https://api.deezer.com/search';
     const PROXY = 'https://cors-anywhere.herokuapp.com';
-    const FETCH_URL = `${PROXY}/${BASE_URL}?q=artist:"${this.state.query}"`;
+    const FETCH_URL = `${PROXY}/${BASE_URL}/artist?q=artist:"${this.state.query}"`;
 
     fetch(FETCH_URL, {method: 'GET', mode: 'cors'})
       .then(response => response.json())
       .then(json => {
-        this.setState({'artist': json.data[0].artist});
+        this.setState({'artist': json.data[0]});
       });
   }
 
