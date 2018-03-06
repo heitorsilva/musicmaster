@@ -1,0 +1,9 @@
+# folders
+node_modules/
+
+# files
+.dockerignore
+.DS_Store
+.git
+.gitignore
+Dockerfile

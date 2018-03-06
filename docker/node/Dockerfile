@@ -2,10 +2,14 @@ FROM node:8.9.0
 
 MAINTAINER Heitor Silva
 
-RUN apt-get install -y git
-
-ENV DISABLE_NOTIFIER true
 ENV CHOKIDAR_USEPOLLING true
+ENV DISABLE_NOTIFIER true
+
+WORKDIR /musicmaster
+COPY . /musicmaster
+
+RUN apt-get install -y git
+RUN npm install
 
 EXPOSE 3000
 

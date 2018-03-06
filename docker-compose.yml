@@ -5,13 +5,8 @@ services:
       context: ./docker/node
       dockerfile: Dockerfile
     image: musicmaster/node
-    working_dir: /var/www/html
+    working_dir: /musicmaster
     volumes:
-      - .:/var/www/html
+      - .:/musicmaster
     ports:
       - "3000:3000"
-    networks:
-      - sdnet
-networks:
-  sdnet:
-    driver: "bridge"
