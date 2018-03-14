@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
+import Gallery from './Gallery';
 import Profile from './Profile';
 
 class App extends Component {
@@ -28,7 +29,7 @@ class App extends Component {
           .then(response => response.json())
           .then(json => {
             this.setState({tracks: json.data});
-          })
+          });
       });
   }
 
@@ -60,9 +61,9 @@ class App extends Component {
             <Profile
               artist={this.state.artist}
             />
-            <div className="Gallery">
-              Gallery
-            </div>
+            <Gallery
+              tracks={this.state.tracks}
+            />
           </div>
           : null
         }
