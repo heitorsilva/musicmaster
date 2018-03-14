@@ -9,7 +9,8 @@ class App extends Component {
 
     this.state = {
       query: '',
-      artist: null
+      artist: null,
+      tracks: []
     };
   }
 
@@ -22,6 +23,12 @@ class App extends Component {
       .then(response => response.json())
       .then(json => {
         this.setState({'artist': json.data[0]});
+
+        fetch(`${PROXY}/${this.state.artist.tracklist}`, {method: 'GET', mode: 'cors'})
+          .then(response => response.json())
+          .then(json => {
+            this.setState({tracks: json.data});
+          })
       });
   }
 
@@ -47,12 +54,18 @@ class App extends Component {
             </InputGroup.Addon>
           </InputGroup>
         </FormGroup>
-        <Profile
-          artist={this.state.artist}
-        />
-        <div className="Gallery">
-          Gallery
-        </div>
+        {
+          this.state.artist ?
+          <div>
+            <Profile
+              artist={this.state.artist}
+            />
+            <div className="Gallery">
+              Gallery
+            </div>
+          </div>
+          : null
+        }
       </div>
     )
   }
